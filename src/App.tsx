@@ -12,10 +12,6 @@ export class ImageEditor extends React.Component<tuiImageEditor.IOptions> {
   model!: tf.GraphModel;
   imageEditorInst!: TuiImageEditor;
 
-  constructor(props: tuiImageEditor.IOptions) {
-    super(props);
-  }
-
   async componentDidMount() {
     this.imageEditorInst = new TuiImageEditor(this.rootEl.current as Element, {
       ...this.props,
@@ -70,7 +66,7 @@ export class ImageEditor extends React.Component<tuiImageEditor.IOptions> {
         ["fgr", "pha", "r1o", "r2o", "r3o", "r4o"] // select outputs
       );
       if (Array.isArray(cb)) {
-        const [fgr, pha, r1o, r2o, r3o, r4o] = cb;
+        const [fgr, pha] = cb;
         this.drawMatte(fgr.clone(), pha.clone(), canvas);
         canvas.style.backgroundColor = "rgb(120, 255, 155)";
       }

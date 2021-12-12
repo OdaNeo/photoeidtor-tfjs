@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import logo from "./logo.svg";
 import "./index.css";
 import { ImageEditor } from "./App";
 import reportWebVitals from "./reportWebVitals";
@@ -10,10 +9,6 @@ ReactDOM.render(
     <>
       <ImageEditor
         includeUI={{
-          loadImage: {
-            path: logo,
-            name: "SampleImage",
-          },
           uiSize: {
             width: "1200px",
             height: "700px",
