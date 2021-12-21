@@ -99,6 +99,7 @@ class RemoveBgML extends React.Component<tuiImageEditor.IOptions> {
         style={{
           display: "flex",
           flexDirection: "column",
+          marginTop: "20px",
         }}
       >
         <input
@@ -113,6 +114,7 @@ class RemoveBgML extends React.Component<tuiImageEditor.IOptions> {
             width: "400px",
             height: "300px",
             border: "1px solid gray",
+            marginTop: "20px",
           }}
         />
         <canvas
@@ -121,8 +123,12 @@ class RemoveBgML extends React.Component<tuiImageEditor.IOptions> {
             width: "400px",
             height: "300px",
             border: "1px solid gray",
+            margin: "20px 0",
           }}
         />
+        <a href="https://removebg.junaid.guru/" target="blank" rel="noreferrer">
+          body-pix
+        </a>
       </div>
     );
   }

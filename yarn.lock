@@ -1896,6 +1896,11 @@
     "@svgr/plugin-svgo" "^5.5.0"
     loader-utils "^2.0.0"
 
+"@tensorflow-models/body-pix@2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@tensorflow-models/body-pix/-/body-pix-2.2.0.tgz#96269095f35fb52fdf8529a81f59b97366f12173"
+  integrity sha512-e8PEf8xWlWhXJtGvlTQpdRyUuDXKAFJT/f8SWiBfvim5BAUyFp2dTeVV3gjDDp8MUEo7T3lofTZUexy/aG4YEA==
+
 "@tensorflow/tfjs-backend-cpu@3.11.0":
   version "3.11.0"
   resolved "https://registry.yarnpkg.com/@tensorflow/tfjs-backend-cpu/-/tfjs-backend-cpu-3.11.0.tgz#01d5d68b91faf12bee4854adae56bc956b794f1a"
