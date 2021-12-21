@@ -3,6 +3,13 @@ import * as tf from "@tensorflow/tfjs";
 
 const MODEL_URL = "model.json";
 
+let [r1i, r2i, r3i, r4i] = [
+  tf.tensor(0),
+  tf.tensor(0),
+  tf.tensor(0),
+  tf.tensor(0),
+];
+
 class RemoveBgML extends React.Component<tuiImageEditor.IOptions> {
   photoEl = React.createRef<HTMLCanvasElement>();
   modelEl = React.createRef<HTMLCanvasElement>();
@@ -40,12 +47,6 @@ class RemoveBgML extends React.Component<tuiImageEditor.IOptions> {
     const canvas = this.modelEl.current;
     if (canvas) {
       // Set initial recurrent state
-      let [r1i, r2i, r3i, r4i] = [
-        tf.tensor(0),
-        tf.tensor(0),
-        tf.tensor(0),
-        tf.tensor(0),
-      ];
 
       // Set down_sample ratio
       const downsample_ratio = tf.tensor(0.5);
@@ -60,6 +61,7 @@ class RemoveBgML extends React.Component<tuiImageEditor.IOptions> {
         const [fgr, pha] = cb;
         this.drawMatte(fgr.clone(), pha.clone(), canvas);
         canvas.style.backgroundColor = "rgb(120, 255, 155)";
+        tf.dispose(cb);
       }
     }
   }
