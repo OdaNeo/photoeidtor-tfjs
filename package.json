@@ -45,8 +45,6 @@
     ]
   },
   "devDependencies": {
-    "@azure/identity": "^2.0.1",
-    "@azure/storage-blob": "12.8.0",
     "@tensorflow/tfjs": "3.11.0"
   }
 }
