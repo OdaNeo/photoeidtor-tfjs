@@ -12,8 +12,6 @@ const instance: AxiosInstance = axios.create({
 
 function PS(): JSX.Element {
   const [api, setApi] = useState("");
-
-  const [src, setSrc] = useState("");
   const [azureSAS, setAzureSAS] = useState(
     "?sv=2020-08-04&ss=bfqt&srt=sco&sp=rwdlacupitfx&se=2022-01-08T09:08:53Z&st=2021-12-21T01:08:53Z&spr=https,http&sig=ewv%2FRf02HNUMBNcOVAKmArWyAsjEzPN3h3L69Kyycbw%3D"
   );
@@ -48,10 +46,85 @@ function PS(): JSX.Element {
       });
   };
 
+  const handleGetLayerInfo = () => {
+    setApi("");
+    instance
+      .post("https://image.adobe.io/pie/psdService/documentManifest", {
+        inputs: [
+          {
+            href: "https://odaneo.blob.core.windows.net/psd/1.psd",
+            storage: "azure",
+          },
+        ],
+      })
+      .then((res) => {
+        setApi(res.data._links.self.href);
+      });
+  };
+
+  const handleCreate = () => {
+    setApi("");
+    instance
+      .post("https://image.adobe.io/pie/psdService/smartObject", {
+        inputs: [
+          {
+            href: "https://odaneo.blob.core.windows.net/psd/1.psd",
+            storage: "azure",
+          },
+        ],
+        options: {
+          layers: [
+            {
+              name: "New",
+              add: {
+                insertTop: true,
+              },
+              input: {
+                href: "https://odaneo.blob.core.windows.net/psd/1.png",
+                storage: "azure",
+              },
+            },
+          ],
+        },
+        outputs: [
+          {
+            storage: "azure",
+            href: `https://odaneo.blob.core.windows.net/psd/2.psd${azureSAS}`,
+            type: "vnd.adobe.photoshop",
+            overwrite: true,
+          },
+        ],
+      })
+      .then((res) => {
+        setApi(res.data._links.self.href);
+      });
+  };
+
+  const handleAutotone = () => {
+    setApi("");
+    instance
+      .post("https://image.adobe.io/lrService/autoTone", {
+        inputs: {
+          href: "https://odaneo.blob.core.windows.net/psd/1.png",
+          storage: "azure",
+        },
+        outputs: [
+          {
+            href: `https://odaneo.blob.core.windows.net/psd/3.png${azureSAS}`,
+            type: "image/png",
+            storage: "azure",
+            overwrite: true,
+          },
+        ],
+      })
+      .then((res) => {
+        setApi(res.data._links.self.href);
+      });
+  };
+
   const handleCheckStatus = () => {
     instance.get(api).then((res) => {
-      alert(res.data.status);
-      setSrc(`https://odaneo.blob.core.windows.net/psd/2.png`);
+      console.log(res);
     });
   };
 
@@ -73,47 +146,48 @@ function PS(): JSX.Element {
         }}
       />
       {/* remove bg */}
-      <div>
-        <div
-          style={{
-            margin: "20px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          <button
-            onClick={handleRemoveBg}
-            style={{
-              width: "120px",
-            }}
-          >
-            Remove Bg
-          </button>
-        </div>
-        <div
-          style={{
-            margin: "20px",
-            display: "flex",
-            flexDirection: "column",
-            width: "200px",
-          }}
-        >
-          <img alt="" src={`https://odaneo.blob.core.windows.net/psd/1.png`} />
-          {api && (
-            <button
-              onClick={handleCheckStatus}
-              style={{
-                margin: "20px 0",
-                width: "120px",
-              }}
-            >
-              Check status
-            </button>
-          )}
-          {src && <img alt="" src={src} />}
-        </div>
-      </div>
+      <button
+        onClick={handleRemoveBg}
+        style={{
+          display: "block",
+          margin: "20px",
+        }}
+      >
+        Remove Bg
+      </button>
+      {/* get layer info */}
+      <button
+        style={{
+          display: "block",
+          margin: "20px",
+        }}
+        onClick={handleGetLayerInfo}
+      >
+        Get Layer Info
+      </button>
+      <button
+        style={{
+          display: "block",
+          margin: "20px",
+        }}
+        onClick={handleCreate}
+      >
+        Creating a SmartObject
+      </button>
+      <button
+        style={{
+          display: "block",
+          margin: "20px",
+        }}
+        onClick={handleAutotone}
+      >
+        Autotone an image
+      </button>
+      {api && (
+        <button onClick={handleCheckStatus} style={{ marginLeft: "20px" }}>
+          Check status
+        </button>
+      )}
     </div>
   );
 }

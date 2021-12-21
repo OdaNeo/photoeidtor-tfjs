@@ -3,13 +3,6 @@ import * as tf from "@tensorflow/tfjs";
 
 const MODEL_URL = "model.json";
 
-let [r1i, r2i, r3i, r4i] = [
-  tf.tensor(0),
-  tf.tensor(0),
-  tf.tensor(0),
-  tf.tensor(0),
-];
-
 class RemoveBgML extends React.Component<tuiImageEditor.IOptions> {
   photoEl = React.createRef<HTMLCanvasElement>();
   modelEl = React.createRef<HTMLCanvasElement>();
@@ -52,7 +45,12 @@ class RemoveBgML extends React.Component<tuiImageEditor.IOptions> {
       const downsample_ratio = tf.tensor(0.5);
 
       const src = this.img2tenser(imgData);
-
+      let [r1i, r2i, r3i, r4i] = [
+        tf.tensor(0),
+        tf.tensor(0),
+        tf.tensor(0),
+        tf.tensor(0),
+      ];
       const cb = await this.model.executeAsync(
         { src, r1i, r2i, r3i, r4i, downsample_ratio }, // provide inputs
         ["fgr", "pha", "r1o", "r2o", "r3o", "r4o"] // select outputs
@@ -61,6 +59,7 @@ class RemoveBgML extends React.Component<tuiImageEditor.IOptions> {
         const [fgr, pha] = cb;
         this.drawMatte(fgr.clone(), pha.clone(), canvas);
         canvas.style.backgroundColor = "rgb(120, 255, 155)";
+        tf.dispose([src, fgr, pha, r1i, r2i, r3i, r4i]);
         tf.dispose(cb);
       }
     }
