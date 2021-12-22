@@ -22,10 +22,9 @@
     "web-vitals": "1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
+    "start": "rescripts start",
+    "build": "rescripts build",
+    "test": "rescripts test",
     "prepare": "husky install"
   },
   "eslintConfig": {
@@ -53,6 +52,7 @@
     ]
   },
   "devDependencies": {
+    "@rescripts/cli": "^0.0.16",
     "@tensorflow/tfjs": "3.11.0",
     "eslint-config-prettier": "^8.3.0",
     "husky": "^7.0.4",

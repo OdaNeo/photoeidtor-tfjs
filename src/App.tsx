@@ -33,7 +33,9 @@ export function App() {
         <TabPane tab="Remove Bg ML" key="/ml" />
         <TabPane tab="PhotoShop API" key="/ps" />
       </Tabs>
-      <BrowserRouter>
+      <BrowserRouter
+        basename={(window as any).__POWERED_BY_QIANKUN__ ? '/photoeditor' : '/'}
+      >
         <Routes>
           <Route path="/" element={<ImageEditor />} />
           <Route path="/ml" element={<RemoveBgML />} />
