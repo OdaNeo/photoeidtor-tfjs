@@ -1,10 +1,11 @@
 import axios, { AxiosInstance } from 'axios'
 import React, { useState } from 'react'
 import { Input, Button } from 'antd'
+import formatUtil from './utils/format'
 
 function PS(): JSX.Element {
   const [api, setApi] = useState('')
-
+  const [html, setHtml] = useState('')
   const [xApi, setXApi] = useState('14c5630d22f0427e9a82ba16c7570093')
   const [auth, setAuth] = useState(
     'eyJhbGciOiJSUzI1NiIsIng1dSI6Imltc19uYTEta2V5LTEuY2VyIn0.eyJpZCI6IjE2NDAxNDM5NzU0MDFfYzIxMGY0NjctMDI1Ni00MDI3LWJmMzgtNmU5NmZjNDFiMDdmX3VlMSIsInR5cGUiOiJhY2Nlc3NfdG9rZW4iLCJjbGllbnRfaWQiOiIxNGM1NjMwZDIyZjA0MjdlOWE4MmJhMTZjNzU3MDA5MyIsInVzZXJfaWQiOiIwQkQzMzI3MjYxQjNFOUY3MEE0OTVGQkFAdGVjaGFjY3QuYWRvYmUuY29tIiwiYXMiOiJpbXMtbmExIiwiYWFfaWQiOiIwQkQzMzI3MjYxQjNFOUY3MEE0OTVGQkFAdGVjaGFjY3QuYWRvYmUuY29tIiwiZmciOiJXQk5SSVpDT0ZMRTVJN1VDSE1SRlJIUUEyST09PT09PSIsIm1vaSI6ImIzOWZiYjQzIiwiZXhwaXJlc19pbiI6Ijg2NDAwMDAwIiwiY3JlYXRlZF9hdCI6IjE2NDAxNDM5NzU0MDEiLCJzY29wZSI6Im9wZW5pZCxBZG9iZUlELHJlYWRfb3JnYW5pemF0aW9ucyJ9.KGb9IVje1tZlit_haEbwsuJnQPPFDsh1vnCFE4-eSbsZnWiHRhvY3bHPJrnnjjb6q4Zv1e30KWBO4j9nPv8sMmKz9-rf2T7d6XV0zSQQw3EnlAM4O56xxqlowkKWi3l0ub9NpdyZfAYISkSUFqrxCv0Yrq5tUqFwgpkjGOJbCOMEPGhW0Qf6totCJ0a7uqeR642yTfw8EzjCP08_PS_EihCA25Eanu5W2YX3sc2t5fzG7EUV37YO-t8ZG-6rZ8ca8JP4nvc5Zq0ZOCChMSb4SVN9MJao0GHPDQFS0Rv50EOcIqmwrRmzg2yxH7PCtsjOKDD5De6YKju8ODfEb8mozQ'
@@ -23,7 +24,7 @@ function PS(): JSX.Element {
 
   const handleRemoveBg = () => {
     setApi('')
-
+    setHtml('')
     instance
       .post('https://image.adobe.io/sensei/cutout', {
         input: {
@@ -47,12 +48,14 @@ function PS(): JSX.Element {
         }
       })
       .then(res => {
+        setHtml(formatUtil.objToHTML(res.data))
         setApi(res.data._links.self.href)
       })
   }
 
   const handleGetLayerInfo = () => {
     setApi('')
+    setHtml('')
     instance
       .post('https://image.adobe.io/pie/psdService/documentManifest', {
         inputs: [
@@ -69,6 +72,7 @@ function PS(): JSX.Element {
 
   const handleCreate = () => {
     setApi('')
+    setHtml('')
     instance
       .post('https://image.adobe.io/pie/psdService/smartObject', {
         inputs: [
@@ -107,6 +111,7 @@ function PS(): JSX.Element {
 
   const handleAutotone = () => {
     setApi('')
+    setHtml('')
     instance
       .post('https://image.adobe.io/lrService/autoTone', {
         inputs: {
@@ -128,8 +133,9 @@ function PS(): JSX.Element {
   }
 
   const handleCheckStatus = () => {
+    setHtml('')
     instance.get(api).then(res => {
-      console.log(res)
+      setHtml(formatUtil.objToHTML(res.data))
     })
   }
 
@@ -221,6 +227,7 @@ function PS(): JSX.Element {
         Autotone an image
       </Button>
       {api && <Button onClick={handleCheckStatus}>Check status</Button>}
+      {html && <div dangerouslySetInnerHTML={{ __html: html }}></div>}
     </div>
   )
 }

@@ -16,12 +16,9 @@ if (!window.__POWERED_BY_QIANKUN__) {
   render({})
 }
 
-export async function bootstrap() {
-  console.log('react app bootstraped')
-}
+export async function bootstrap() {}
 
 export async function mount(props: any) {
-  console.log('props from main framework', props)
   render(props)
 }
 
