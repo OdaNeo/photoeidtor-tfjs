@@ -1,8 +1,7 @@
 services:
-    web:
-        container_name: web
-        image: node:14.17.0
-        volumes:
-          - .:/app/
-        command: bash -c "cd /app && rm -rf node_modules && yarn --frozen-lockfile && yarn run build"
-        
+  web:
+    container_name: web
+    image: node:14.17.0
+    volumes:
+      - .:/app/
+    command: bash -c "cd /app && rm -rf node_modules && yarn --frozen-lockfile && yarn run build"
