@@ -29,9 +29,22 @@ export function App() {
         tabPosition={'left'}
         size={'small'}
       >
-        <TabPane tab="Image Editor" key="/" />
-        <TabPane tab="Remove Bg ML" key="/ml" />
-        <TabPane tab="PhotoShop API" key="/ps" />
+        <TabPane
+          tab="Image Editor"
+          key={(window as any).__POWERED_BY_QIANKUN__ ? '/photoeditor' : '/'}
+        />
+        <TabPane
+          tab="Remove Bg ML"
+          key={
+            (window as any).__POWERED_BY_QIANKUN__ ? '/photoeditor/ml' : '/ml'
+          }
+        />
+        <TabPane
+          tab="PhotoShop API"
+          key={
+            (window as any).__POWERED_BY_QIANKUN__ ? '/photoeditor/ps' : '/ps'
+          }
+        />
       </Tabs>
       <BrowserRouter
         basename={(window as any).__POWERED_BY_QIANKUN__ ? '/photoeditor' : '/'}
