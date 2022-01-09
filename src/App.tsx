@@ -1,8 +1,8 @@
 import './App.css'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import ImageEditor from './image-editor'
-import RemoveBgML from './remove-bg'
-import PS from './ps'
+import ImageEditor from './view/image-editor'
+import RemoveBgML from './view/remove-bg'
+import PS from './view/ps'
 import { Tabs } from 'antd'
 
 const { TabPane } = Tabs

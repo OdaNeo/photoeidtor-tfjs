@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from 'axios'
 import React, { useState } from 'react'
 import { Input, Button } from 'antd'
-import formatUtil from './utils/format'
+import formatUtil from '../utils/format'
 
 function PS(): JSX.Element {
   const [api, setApi] = useState('')

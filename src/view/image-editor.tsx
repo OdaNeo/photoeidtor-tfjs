@@ -1,4 +1,4 @@
-import ImageEditor from './components/imageEditor'
+import ImageEditor from '../components/imageEditor'
 
 const ImageEditorFC = () => {
   return (
